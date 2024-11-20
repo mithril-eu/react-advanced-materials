@@ -1,5 +1,6 @@
 import { components } from "./schema";
 
-type Author = components["schemas"]["Author"];
+export type Author = components["schemas"]["Author"];
+export type Book = components["schemas"]["Book"];
 
 // https://fakerestapi.azurewebsites.net

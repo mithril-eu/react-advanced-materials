@@ -1,12 +1,13 @@
 import { Link, Outlet } from "react-router-dom"
+import { paths } from "./paths"
 
 export function Layout() {
   return (
     <>
       <header style={{ display: "flex", gap: "20px" }}>
-        <Link to="/">Dashboard</Link>
-        <Link to="/customers">Customers</Link>
-        <Link to="/invoices">Invoices</Link>
+        <Link to={paths.dashboard()}>Dashboard</Link>
+        <Link to={paths.authors()}>Authors</Link>
+        <Link to={paths.books()}>Books</Link>
       </header>
       <Outlet />
     </>

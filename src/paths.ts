@@ -1,7 +1,9 @@
 export const paths = {
+  login: () => "/login",
   dashboard: () => "/",
-  invoices: () => "/invoices",
+  books: () => "/books",
   invoice: (id = ":id") => `/invoices/${id}`,
   // invoiceSomething: (id = ":id", slug = ":slug") => `/invoices/${id}/something/${slug}`,
-  customers: () => "/customers",
+  authors: () => "/authors",
+  newAuthor: () => "/authors/new",
 }

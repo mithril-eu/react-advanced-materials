@@ -1,4 +1,5 @@
 import { lazy } from "react"
 
-export const CustomersPage = lazy(() => import("./Customers"))
-export const InvoicesPage = lazy(() => import("./Invoices"))
+export const AuthorsPage = lazy(() => import("./Authors"))
+export const BooksPage = lazy(() => import("./Books"))
+export const NewAuthorPage = lazy(() => import("./NewAuthor"))
