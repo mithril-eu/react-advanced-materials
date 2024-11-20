@@ -1,36 +1,35 @@
-import { StrictMode } from "react"
+import { StrictMode, Suspense } from "react"
 import { createRoot } from "react-dom/client"
 import "./index.css"
+import Dashboard from "@/pages/Dashboard.tsx"
+import { paths } from "@/paths.ts"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import { Layout } from "./layout"
+import { CustomersPage, InvoicesPage } from "./pages"
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: paths.dashboard(),
     element: <Layout />,
     children: [
       {
         index: true,
+        element: <Dashboard />,
+      },
+      {
+        path: paths.customers(),
         element: (
-          <div>
-            <h1>Dashboard</h1>
-          </div>
+          <Suspense fallback="LOADING...">
+            <CustomersPage />
+          </Suspense>
         ),
       },
       {
-        path: "/customers",
+        path: paths.invoices(),
         element: (
-          <div>
-            <h1>Customers</h1>
-          </div>
-        ),
-      },
-      {
-        path: "/invoices",
-        element: (
-          <div>
-            <h1>Invoices</h1>
-          </div>
+          <Suspense fallback="LOADING...">
+            <InvoicesPage />
+          </Suspense>
         ),
       },
     ],
