@@ -21,16 +21,14 @@ export default function Customers() {
   )
 }
 
-function useCustomersPage() {
+export function useCustomersPage() {
   // const { isLoggedIn } = useContext(AuthContext)
 
-  const { data } = useQuery({
+  return useQuery({
     queryKey: ["authors"],
     queryFn: getAuthors,
     // staleTime: 5000,
     // enabled: true,
     // placeholderData
   })
-
-  return { data }
 }
