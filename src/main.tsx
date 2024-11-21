@@ -8,6 +8,9 @@ import { Layout } from "./layout"
 import { AuthorsPage, BooksPage, NewAuthorPage } from "./pages"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import { LoginPage } from "./pages/Login"
+import { AuthProvider } from "./providers/AuthProvider"
+import { ProtectedRoute } from "./components/ProtectedRoute"
 
 // https://github.com/mithril-eu/react-advanced-materials
 
@@ -15,9 +18,18 @@ const queryClient = new QueryClient()
 
 const router = createBrowserRouter(
   [
+    { path: "/", element: <div>Landing Page</div> },
+    {
+      path: paths.login(),
+      element: <LoginPage />,
+    },
     {
       path: paths.dashboard(),
-      element: <Layout />,
+      element: (
+        <ProtectedRoute>
+          <Layout />
+        </ProtectedRoute>
+      ),
       children: [
         {
           index: true,
@@ -59,9 +71,11 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </AuthProvider>
   </StrictMode>,
 )
