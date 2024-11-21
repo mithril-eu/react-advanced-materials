@@ -1,25 +1,16 @@
+import { useAuth } from "@/components/ProtectedRoute.tsx"
 import { LoginData } from "@/providers/AuthProvider"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
 
+// Example of Zod schema for validation
 const loginSchema = z.object({
   username: z.string(),
   password: z.string(),
 })
 
 export function LoginPage() {
-  // const { login } = useLoginPage()
-
-  const {
-    handleSubmit,
-    formState: { errors },
-    register,
-  } = useForm<LoginData>()
-
-  const onSubmit: SubmitHandler<LoginData> = (data) => {
-    loginSchema.parse(data)
-    // POST data
-  }
+  const { handleSubmit, register, onSubmit, errors } = useLoginPage()
 
   return (
     <>
@@ -57,8 +48,19 @@ export function LoginPage() {
   )
 }
 
-// function useLoginPage() {
-//   const { login } = useAuth()
-//
-//   return { login }
-// }
+function useLoginPage() {
+  const { login } = useAuth()
+
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = useForm<LoginData>()
+
+  const onSubmit: SubmitHandler<LoginData> = (data) => {
+    loginSchema.parse(data) // example of Zod schema usage
+    // POST data
+  }
+
+  return { login, handleSubmit, errors, register, onSubmit }
+}

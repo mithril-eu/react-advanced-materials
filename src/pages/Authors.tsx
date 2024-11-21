@@ -3,8 +3,8 @@ import { getAuthors } from "@/services/authors.service"
 import { useQuery } from "@tanstack/react-query"
 import { Link } from "react-router-dom"
 
-export default function Customers() {
-  const { data } = useCustomersPage()
+export default function Authors() {
+  const { data } = useAuthorsPage()
 
   return (
     <div>
@@ -21,14 +21,14 @@ export default function Customers() {
   )
 }
 
-export function useCustomersPage() {
+export function useAuthorsPage() {
   // const { isLoggedIn } = useContext(AuthContext)
 
   return useQuery({
     queryKey: ["authors"],
     queryFn: getAuthors,
-    // staleTime: 5000,
-    // enabled: true,
+    // staleTime: 5000, // how long will data be considered fresh
+    // enabled: true, // query is enabled/disabled
     // placeholderData
   })
 }
