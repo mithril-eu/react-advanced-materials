@@ -17,6 +17,8 @@ export const AuthContext = createContext<AuthContextType>({
 } as AuthContextType)
 
 export function AuthProvider({ children }: PropsWithChildren) {
+  // const queryClient = new QueryClient()
+
   const [token, setToken] = useState(() => localStorage.getItem("token"))
 
   const handleLogin = (loginData: LoginData) => {
@@ -24,6 +26,9 @@ export function AuthProvider({ children }: PropsWithChildren) {
     console.log("login data", loginData)
     // GET token from BE
     const token = "jdsofgoasdginfsogn"
+    // const user = {}
+    // Setting query cache manually with the user object
+    // queryClient.setQueryData(["user"], () => user)
     setToken(token)
     localStorage.setItem("token", token)
   }
