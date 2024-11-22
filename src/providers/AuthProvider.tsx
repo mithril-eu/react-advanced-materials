@@ -1,10 +1,9 @@
-import { paths } from "@/paths"
 import { client } from "@/services/httpClient"
-import { createContext, PropsWithChildren, useEffect, useState } from "react"
+import { PropsWithChildren, createContext, useEffect, useState } from "react"
 
 export type AuthContextType = {
-  isLoggedIn: boolean
-  login: (loginData: LoginData) => Promise<void>
+  isAuthenticated: boolean
+  login: (loginData: LoginData) => void
   logout: () => void
 }
 
@@ -14,39 +13,37 @@ export type LoginData = {
 }
 
 export const AuthContext = createContext<AuthContextType>({
-  isLoggedIn: false,
+  isAuthenticated: false,
 } as AuthContextType)
 
 export function AuthProvider({ children }: PropsWithChildren) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [token, setToken] = useState(() => localStorage.getItem("token"))
 
-  const handleLogin = async (loginData: LoginData) => {
+  const handleLogin = (loginData: LoginData) => {
     // pass login data to API
     console.log("login data", loginData)
-    const tokenFromBe = "jdsofgoasdginfsogn"
-    setToken(tokenFromBe)
-    localStorage.setItem("token", tokenFromBe)
-    setIsLoggedIn(true)
+    // GET token from BE
+    const token = "jdsofgoasdginfsogn"
+    setToken(token)
+    localStorage.setItem("token", token)
   }
 
   const handleLogout = () => {
     // rest of the logic
     setToken(null)
     localStorage.removeItem("token")
-    client.defaults.headers["Authorization"] = null
-    setIsLoggedIn(false)
+    delete client.defaults.headers.Authorization
   }
 
   useEffect(() => {
-    if (isLoggedIn && token && window.location.pathname === paths.login()) {
-      client.defaults.headers["Authorization"] = `Bearer ${token}`
-      window.location.href = paths.dashboard()
+    if (token) {
+      client.defaults.headers.Authorization = `Bearer ${token}`
+      setToken(token)
     }
-  }, [isLoggedIn, token, window.location.href])
+  }, [token])
 
   const contextValue: AuthContextType = {
-    isLoggedIn,
+    isAuthenticated: !!token,
     login: handleLogin,
     logout: handleLogout,
   }
