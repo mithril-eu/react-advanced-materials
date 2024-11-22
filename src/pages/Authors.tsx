@@ -10,7 +10,9 @@ export default function Authors() {
     <div>
       <div>
         <h1>Authors</h1>
-        <Link to={paths.newAuthor()}>+ New author</Link>
+        <Link to={paths.newAuthor()} data-testid="newAuthorLink">
+          + New author
+        </Link>
       </div>
       <ul>
         {data?.map(({ id, firstName, lastName }) => (

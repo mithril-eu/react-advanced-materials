@@ -42,7 +42,7 @@ export function LoginPage() {
             {errors.password.message}
           </small>
         )}
-        <button>Login in</button>
+        <button type="submit">Login</button>
       </form>
     </>
   )

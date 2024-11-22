@@ -63,7 +63,7 @@ export default function NewAuthor() {
         {/* Controlled input */}
         <input type="text" name="firstName" required />
         <input type="text" name="lastName" required />
-        <button>Save</button>
+        <button type="submit">Save</button>
       </form>
     </>
   )

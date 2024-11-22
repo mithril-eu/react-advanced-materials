@@ -6,7 +6,9 @@ export function Layout() {
     <>
       <header style={{ display: "flex", gap: "20px" }}>
         <Link to={paths.dashboard()}>Dashboard</Link>
-        <Link to={paths.authors()}>Authors</Link>
+        <Link to={paths.authors()} data-testid="authorsLink">
+          Authors
+        </Link>
         <Link to={paths.books()}>Books</Link>
       </header>
       <Outlet />
